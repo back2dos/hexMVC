@@ -41,10 +41,10 @@ class StatelessModuleConfig implements IStatelessConfig implements IInjectorCont
 		this.injector.mapToValue( controllerInterface, instance, name );
 	}
 	
-	public function mapModel<ModelType>( modelInterface : Class<ModelType>, modelClass : Class<ModelType>,  name : String = "" ) : Void
-	{
-		var instance : Dynamic = this.injector.instantiateUnmapped( modelClass );
-		this.injector.mapToValue( modelInterface, instance, name );
-		this.injector.mapToValue( Type.resolveClass( Type.getClassName( modelInterface ) + "RO" ), instance );
-	}
+	// public function mapModel<ModelType>( modelInterface : Class<ModelType>, modelClass : Class<ModelType>,  name : String = "" ) : Void
+	// {
+	// 	var instance : Dynamic = this.injector.instantiateUnmapped( modelClass );
+	// 	this.injector.mapToValue( modelInterface, instance, name );
+	// 	this.injector.mapToValue( Type.resolveClass( Type.getClassName( modelInterface ) + "RO" ), instance );
+	// }
 }

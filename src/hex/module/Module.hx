@@ -26,8 +26,6 @@ import hex.event.MessageType;
 import hex.log.ILogger;
 import hex.log.LogManager;
 import hex.log.message.DomainMessageFactory;
-import hex.metadata.AnnotationProvider;
-import hex.metadata.IAnnotationProvider;
 import hex.module.IModule;
 import hex.view.IView;
 import hex.view.viewhelper.IViewHelperTypedef;
@@ -42,7 +40,6 @@ class Module implements IModule
 	var _internalDispatcher 	: IDispatcher<{}>;
 	var _domainDispatcher 		: IDispatcher<{}>;
 	var _injector 				: Injector;
-	var _annotationProvider 	: IAnnotationProvider;
 	var _logger 				: ILogger;
 
 	public function new()
@@ -75,8 +72,6 @@ class Module implements IModule
 		{
 		#end
 			this._domainDispatcher = ApplicationDomainDispatcher.getInstance( context ).getDomainDispatcher( this.getDomain() );
-			this._annotationProvider = AnnotationProvider.getAnnotationProvider( this.getDomain(), null, context );
-			this._annotationProvider.registerInjector( this._injector );
 			this._onInitialisation();
 			
 			#if debug
@@ -197,11 +192,6 @@ class Module implements IModule
 			this._internalDispatcher.removeAllListeners();
 			DomainExpert.getInstance().releaseDomain( this );
 
-			if ( this._annotationProvider != null )
-			{
-				this._annotationProvider.unregisterInjector( this._injector );
-			}
-			
 			this._injector.destroyInstance( this );
 			this._injector.teardown();
 			

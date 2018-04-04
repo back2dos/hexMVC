@@ -1,7 +1,5 @@
 package hex.module;
 
-import hex.config.stateful.IStatefulConfig;
-import hex.config.stateless.IStatelessConfig;
 import hex.core.IApplicationContext;
 import hex.di.Dependency;
 import hex.di.IBasicInjector;
@@ -154,33 +152,6 @@ class ContextModule implements IContextModule
 	function _getDependencyInjector() : IDependencyInjector
 	{
 		return this._injector;
-	}
-	
-	/**
-	 * Add collection of module configuration classes that 
-	 * need to be executed before initialisation's end
-	 * @param	configurations
-	 */
-	function _addStatelessConfigClasses( configurations : Array<Class<IStatelessConfig>> ) : Void
-	{
-		for ( configurationClass in configurations )
-		{
-			var config : IStatelessConfig = this._injector.instantiateUnmapped( configurationClass );
-			config.configure();
-		}
-	}
-	
-	/**
-	 * Add collection of runtime configurations that 
-	 * need to be executed before initialisation's end
-	 * @param	configurations
-	 */
-	function _addStatefulConfigs( configurations : Array<IStatefulConfig> ) : Void
-	{
-		for ( configuration in configurations )
-		{
-			configuration.configure( this._injector, this );
-		}
 	}
 	
 	/**

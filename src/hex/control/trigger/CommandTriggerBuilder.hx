@@ -7,8 +7,6 @@ import haxe.macro.Expr.Access;
 import haxe.macro.Expr.Field;
 import haxe.macro.Expr.Position;
 import hex.annotation.AnnotationReplaceBuilder;
-import hex.control.payload.ExecutionPayload;
-import hex.control.trigger.Command;
 import hex.di.IDependencyInjector;
 import hex.module.IContextModule;
 import hex.util.MacroUtil;
@@ -32,8 +30,6 @@ class CommandTriggerBuilder
 		var fields = Context.getBuildFields();
 		if ( Context.getLocalClass().get().isInterface ) return fields;
 		
-		var CommandClassType 				= MacroUtil.getClassType( Type.getClassName( Command ) );
-		var MacroCommandClassType 			= MacroUtil.getClassType( Type.getClassName( MacroCommand ) );
 		var IContextModuleClassType 		= MacroUtil.getClassType( Type.getClassName( IContextModule ) );
 		var IDependencyInjectorClassType 	= MacroUtil.getClassType( Type.getClassName( IDependencyInjector ) );
 		
@@ -48,6 +44,7 @@ class CommandTriggerBuilder
 					
 					if ( isMapped )
 					{
+						throw 'cannot really handle this';
 						var className = Context.getLocalModule();
 						if ( m.length > 1 )
 						{
@@ -99,12 +96,6 @@ class CommandTriggerBuilder
 						
 						var typePath = MacroUtil.getTypePath( command.name, command.pos );
 
-						if ( !MacroUtil.isSubClassOf( MacroUtil.getClassType( command.name ), CommandClassType ) )
-						{
-							Context.error( "'" + className + "' is mapped as a command class (with '@" + CommandTriggerBuilder.MapAnnotation + 
-								"' annotation), but it doesn't extend '" + CommandClassType.module + "' class", command.pos );
-						}
-
 						var arguments :Array<Expr> = [];
 						for ( arg in func.args )
 						{
@@ -131,7 +122,7 @@ class CommandTriggerBuilder
 
 						var className = MacroUtil.getPack( command.name );
 						
-						if ( MacroUtil.isSubClassOf( MacroUtil.getClassType( command.name ), MacroCommandClassType ) )
+						if ( false )
 						{
 							func.expr = macro 
 							{

@@ -1,6 +1,6 @@
 package hex.control;
 
-import hex.control.payload.ExecutionPayload;
+private typedef ExecutionPayload = {}
 
 /**
  * ...

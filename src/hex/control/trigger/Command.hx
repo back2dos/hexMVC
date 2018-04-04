@@ -5,7 +5,6 @@ import hex.control.async.AsyncCallback;
 import hex.control.async.Expect;
 import hex.control.async.Handler;
 import hex.control.command.ICommand;
-import hex.control.payload.ExecutionPayload;
 import hex.di.IInjectorContainer;
 import hex.error.Exception;
 import hex.error.VirtualMethodException;
@@ -119,9 +118,5 @@ class Command<ResultType> implements Expect<ResultType> implements ICommand impl
 	{
 		return null;
 	}
-	
-	public function getReturnedExecutionPayload() : Array<ExecutionPayload>
-	{
-		return null;
-	}
+
 }

@@ -1,10 +1,7 @@
 package hex.module;
 
 import hex.core.IApplicationContext;
-import hex.di.Dependency;
-import hex.di.IBasicInjector;
-import hex.di.IDependencyInjector;
-import hex.di.Injector;
+import hex.di.*;
 import hex.di.provider.DomainLoggerProvider;
 import hex.di.util.InjectorUtil;
 import hex.domain.Domain;
@@ -157,44 +154,9 @@ class ContextModule implements IContextModule
 	/**
 	 * 
 	 */
-	function _get<T>( type : Class<T>, name : String = '' ) : T
+	function _get<T>( type : ClassRef<T>, ?name : MappingName) : T
 	{
 		return this._injector.getInstance( type, name );
 	}
 	
-	/**
-	 * 
-	 */
-	function _map<T>( tInterface : Class<T>, ?tClass : Class<T>,  name : String = "", asSingleton : Bool = false ) : Void
-	{
-		if ( asSingleton )
-		{
-			this._injector.mapToSingleton( tInterface, tClass != null ? tClass : tInterface, name );
-		}
-		else
-		{
-			this._injector.mapToType( tInterface, tClass != null ? tClass : tInterface, name );
-		}
-	}
-	
-	/**
-	 * 
-	 */
-	macro public function _getDependency<T>( ethis, clazz : ExprOf<Dependency<T>>, ?id : ExprOf<String> ) : ExprOf<T>
-	{
-		var classRepresentation = InjectorUtil._getStringClassRepresentation( clazz );
-		var classReference = InjectorUtil._getClassReference( clazz );
-		var ct = InjectorUtil._getComplexType( clazz );
-		
-		var e = macro @:pos( ethis.pos ) $ethis._injector.getInstanceWithClassName( $v { classRepresentation }, $id );
-		return 
-		{
-			expr: ECheckType
-			( 
-				e,
-				ct
-			),
-			pos:ethis.pos
-		};
-	}
 }

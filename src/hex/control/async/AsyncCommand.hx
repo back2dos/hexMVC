@@ -3,7 +3,6 @@ package hex.control.async;
 import hex.control.async.AsyncCommandMessage;
 import hex.control.async.IAsyncCommand;
 import hex.control.async.IAsyncCommandListener;
-import hex.control.payload.ExecutionPayload;
 import hex.di.IInjectorContainer;
 import hex.error.IllegalStateException;
 import hex.error.VirtualMethodException;
@@ -192,11 +191,6 @@ class AsyncCommand implements IAsyncCommand implements IInjectorContainer
         return null;
     }
 	
-	public function getReturnedExecutionPayload() : Array<ExecutionPayload>
-	{
-		return null;
-	}
-
     public function getOwner() : IContextModule
     {
         return this._owner;
